@@ -24,6 +24,7 @@ int FindDay()
                 visited[spot.first][spot.second] = 1 ;
                 for(int j = 0 ; j < 4 ; j++)
                 {
+                    
                     pair<int,int> temp = make_pair( spot.first+x[j], spot.second+y[j] ) ;
                     if(!visited[temp.first][temp.second]) 
                         if(temp.first > -1 && temp.first < M && temp.second > -1 && temp.second > N) que.push(temp) ;
