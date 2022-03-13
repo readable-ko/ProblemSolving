@@ -1,43 +1,30 @@
 #include <bits/stdc++.h>
-using namespace std;
-vector<int> arr;
-int arr_length;
+using namespace std ;
 
-void check_bits(int year, int bits) {
-    arr_length = 0;
-    while(year) 
-    {
-        arr[year % bits] = true; year /= bits;
-        arr_length++;
-    }
-}
 
-bool check_exist(int bits)
+int main()
 {
-    for(int i = 0 ; i < bits ; i++)
-        if(!arr[i]) return false;
-    return true;
-}
+    int year, bits, value;
+    cin >> year >> bits ;
 
-int main() 
-{
-    cin.tie(NULL); cout.tie(NULL);
-    ios_base::sync_with_stdio(false);
-    int year, bits;
-    cin >> year >> bits;
-
-    while(true)
+    vector<int> arr(bits);
+    iota(arr.begin(), arr.end(), 0) ;
+    
+    while(next_permutation(arr.begin(), arr.end()))
     {
-        arr.assign(bits, 0);
-        check_bits(++year, bits);
-        if(arr_length > bits) 
-        {
-            cout << "-1\n"; break;
+        if(arr[0] == 0) continue;
+        value = 0;
+
+        for(int i = 0 ; i < arr.size() ; i++) {
+            value += arr[arr.size() - i - 1] * pow(bits, i);
         }
 
-        if(check_exist(bits)) 
+        if(value > year)
         {
-            cout << year << "\n"; break;
+            cout << value << "\n";
+            return 0;
         }
     }
+    cout << "-1\n" ;
+    return 0;
 }
