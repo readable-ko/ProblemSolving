@@ -1,56 +1,69 @@
 #include <bits/stdc++.h>
-#include <queue>
 #define SETTING ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
 using namespace std ;
 
-int N, K,testCases, DEST ;
-int building[100001] ;
-int answer[100001] ;
-vector< vector<int> > graph(100001) ;
+int N, K, DEST;
+int totalTime[1001] ;
+int buildTime[1001] ;
+int Topology_Sort[1001] ;
+vector< vector <int> > graph(1001) ;
 
-void dp()
+void find_answer()
 {
     queue<int> que ;
-    int prev ;
-    
-    que.push(graph[DEST].back()) ;
-    prev = DEST ;
-    answer[DEST] = 0 ;
-    graph[DEST].pop_back() ;
 
+    for(int i = 1 ; i <= N ; i++)
+        if(!Topology_Sort[i]) que.push(i) ;
+    
     while(!que.empty())
     {
-        answer[que.front()] = min(answer[que.front()], answer[prev] + building[prev]) ;
-        que.push()
+        int curr = que.front() ;
+        que.pop() ;
+
+        if(curr == DEST) break ;
+        for(int i = 0 ; i < graph[curr].size() ; i++)
+        {
+            totalTime[graph[curr][i]] = 
+                max(totalTime[graph[curr][i]], totalTime[curr] + buildTime[curr]) ;
+            
+            Topology_Sort[graph[curr][i]]-- ;
+            if(!Topology_Sort[graph[curr][i]]) que.push(graph[curr][i]) ;
+        }
     }
 }
 
 void input_setting()
 {
-    int starting, ending ;
-    memset(&building, 0, 100001 * sizeof(int)) ;
-    fill(&answer[0], &answer[100001], INT_MAX) ;
-    graph = vector< vector<int> >(100001);
+    int startPoint, endPoint ;
+    graph = vector< vector <int> > (1001) ;
+
+    memset(buildTime, 0, sizeof(int) * 1001) ;
+    memset(totalTime, 0, sizeof(int) * 1001) ;
+    memset(Topology_Sort, 0, sizeof(int) * 1001) ;
+    
     cin >> N >> K ;
     for(int i = 1 ; i <= N ; i++)
-        cin >> building[i] ;
+        cin >> buildTime[i] ;
     
-    for(int i = 1 ; i <= K ; i++)
+    for(int i = 0 ; i < K ; i++)
     {
-        cin >> ending >> starting ;
-        graph[starting].push_back(ending) ;
+        cin >> startPoint >> endPoint ;
+        graph[startPoint].push_back(endPoint) ;
+        Topology_Sort[endPoint]++ ;
     }
+
     cin >> DEST ;
 }
 
 int main()
 {
     SETTING ;
-    cin >> testCases ;
-    for(int i = 0 ; i < testCases ; i++)
+    int T ;
+    cin >> T ;
+    for(int i = 0 ; i < T ; i++)
     {
         input_setting() ;
-        dp() ;
+        find_answer() ;
+        cout << totalTime[DEST] + buildTime[DEST] << "\n" ;
     }
-    
 }

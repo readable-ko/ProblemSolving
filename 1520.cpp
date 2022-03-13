@@ -1,34 +1,48 @@
-//https://wootool.tistory.com/83
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#define SETTING ios::sync_with_stdio(0), cin.tie(0), cout.tie(0)
 using namespace std ;
-int dp[501][501] ;
-int graph[501][501] ;
 int M, N ;
+int dp[501][501] ;
+int arr[501][501] ;
 
-int find(int horiz, int verti)
+int find_path(int x , int y)
 {
-    if(horiz == M && verti == N) return 1 ;
-    if(horiz > M || verti > N || horiz < 1 | verti < 1) return 0 ;
+    int x_way[] = {1, 0, -1, 0} ;
+    int y_way[] = {0, 1, 0, -1} ;
 
-    int x_asis[5] = { 1, 0, -1, 0 } ;
-    int y_asis[5] = { 0, 1, 0, -1 } ;
-    for(int i = 0 ; i <= 4 ; i++)
+    if(x == M && y == N) return 1 ;
+    if(dp[x][y] != -1) return dp[x][y] ;
+    dp[x][y] = 0 ;
+    
+    for(int i = 0 ; i < 4 ; i++)
     {
-        if(graph[horiz][verti] > graph[horiz + x_asis[i]][verti + y_asis[i]]) dp[horiz][verti] += find(horiz + x_asis[i], verti + y_asis[i]) ;
+        int next_x = x + x_way[i] ;
+        int next_y = y + y_way[i] ;
+
+        if(next_x > 0 && next_x <= M && next_y > 0 && next_y <= N)
+            if(arr[next_x][next_y] < arr[x][y])
+                dp[x][y] += find_path(next_x, next_y) ;
     }
-    return dp[horiz][verti] ;
+    return dp[x][y] ;
+}
+
+void input_setting()
+{
+    cin >> M >> N ;
+    for(int i = 1 ; i <= M ; i++)
+        for(int j = 1 ; j <= N ; j++)
+        {
+            cin >> arr[i][j] ;
+            dp[i][j] = -1 ;
+        }
 }
 
 int main()
 {
-    cin >> M >> N ;
+    SETTING ;
     
-    //fill(&dp[0][0], &dp[500][501], -1) ;
-    dp[M][N] = 1 ;
-    for(int i = 1 ; i <= M ; i++)
-        for(int j = 1 ; j <= N ; j++)
-            cin >> graph[M][N] ;
-    
-    dp[0][0] = find(M, N) ;
-    cout << dp[0][0] ;
+    input_setting() ;
+    cout << find_path(1, 1) << "\n" ;
+    return 0 ;
 }
