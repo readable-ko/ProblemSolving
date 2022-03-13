@@ -3,7 +3,7 @@ using namespace std;
 int N ;
 int arr[502][502] ;
 int dp[502][502] ;
-// 2차원의 주소는 &arr[0~ 501][0~501]인데 왜 1차원은 &arr[0~502]인가..
+
 int dynamic_programming()
 {
     int value = 0 ;

@@ -1,17 +1,28 @@
 #include <iostream>
-#define MOD_NUM 1000000000
+#define MOD 1000000000
 using namespace std ;
-int arr[101] ;
+long long int dp[101][10] ;
 
 int main()
 {
     int N ;
+    long long int answer = 0 ;
     cin >> N ;
-    arr[1] = 9 ;
+    fill(&dp[1][1], &dp[1][10], 1) ;
+
     for(int i = 2 ; i <= N ; i++)
     {
-        arr[i] = arr[i-2] * 2 - 1 ;
-        arr[i] % MOD_NUM ;
+        for(int j = 0 ; j <= 9 ; j++)
+        {
+            if(j == 0) dp[i][j] = dp[i-1][j+1] % MOD ;
+            else if(j == 9) dp[i][j] = dp[i-1][j-1] % MOD ;
+            else dp[i][j] += (dp[i-1][j-1] + dp[i-1][j+1]) % MOD ;
+        } 
     }
-    cout << arr[N] ;
+    
+    for(int i = 0 ; i < 10 ; i++)
+    {
+        answer += dp[N][i] ;
+    }
+    cout << answer % MOD;
 }

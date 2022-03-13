@@ -13,7 +13,7 @@ int main()
     
     for(int i = 1 ; i <= N ; i++)
     {
-        for(int j = 1 ; j <= N ; j++)
+        for(int j = 1 ; j <= i - 1 ; j++)
         {
             if(arr[i] > arr[j]) dp[i] = max(dp[i], dp[j]) ;
         }
