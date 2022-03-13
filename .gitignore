@@ -1,0 +1,8 @@
+## exe File ##
+
+*.exe
+*.exec
+
+## txt File ##
+
+*.txt
