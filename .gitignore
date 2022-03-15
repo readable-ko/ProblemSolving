@@ -6,3 +6,6 @@
 ## txt File ##
 
 *.txt
+
+## json File ##
+*.json
