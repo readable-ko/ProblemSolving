@@ -9,3 +9,6 @@
 
 ## json File ##
 *.json
+
+## other people's code to study ##
+*_other.cpp
