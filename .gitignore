@@ -8,6 +8,7 @@
 *.txt
 
 ## json File ##
+.vscode
 *.json
 
 ## other people's code to study ##
