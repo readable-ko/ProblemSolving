@@ -32,7 +32,7 @@ void InputSetting()
 		{
 			min_que.push({value, i}) ;
 			max_que.push({value, i}) ;
-			checked[i] = true ;
+			checked[i] = 0 ;
 			que_size++ ;
 		}
 		else
@@ -40,30 +40,30 @@ void InputSetting()
 			if(que_size == 0) continue ;
 			if(value == 1)
 			{
-				while(!checked[max_que.top().second])
+				while(checked[max_que.top().second])
 					max_que.pop() ;
 				
 				if(que_size == 0) continue ;
-				checked[max_que.top().second] = 0 ;
+				checked[max_que.top().second] = 1 ;
 				max_que.pop() ;
 				que_size-- ;
 			}
 			else
 			{
-				while(!checked[min_que.top().second])
+				while(checked[min_que.top().second])
 					min_que.pop() ;
 				
 				if(que_size == 0) continue ;
-				checked[min_que.top().second] = 0 ;
+				checked[min_que.top().second] = 1 ;
 				min_que.pop() ;
 				que_size-- ;				
 			}
 		}
 	}
 
-	while(que_size != 0 && !checked[min_que.top().second])
+	while(que_size != 0 && checked[min_que.top().second])
 		min_que.pop() ;
-	while(que_size != 0 && !checked[max_que.top().second])
+	while(que_size != 0 && checked[max_que.top().second])
 		max_que.pop() ;
 
 	que_size <= 0 ? cout << "EMPTY" << endl : cout << max_que.top().first << " " << min_que.top().first << endl ;
