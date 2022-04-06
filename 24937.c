@@ -1,0 +1,1 @@
+main(){long long int a,b;char* s="SciComLove";scanf("%lld",&a);a=a%10;printf("%s",s+a);for(b=0;b<a;b++)printf("%c",*(s+b));}
