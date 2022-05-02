@@ -1,0 +1,1 @@
+main(K,D,A){scanf("%d/%d/%d",&K,&D,&A);printf(K+A<D||D==0?"hasu":"gosu");}
