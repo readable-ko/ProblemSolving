@@ -49,6 +49,7 @@ void BFS()
 
 int main()
 {
+    SETTING ;
     cin >> T ;
     while(T--)
     {
