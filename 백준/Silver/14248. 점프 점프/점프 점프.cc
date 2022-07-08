@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#define SETTING ios::sync_with_stdio(0), cin.tie(0)
 using namespace std ;
 int N, s, cnt ;
 
 int main()
 {
+    SETTING ;
     cin >> N ;
     vector<int> arr(N) ;
     vector<bool> visited(N) ;
