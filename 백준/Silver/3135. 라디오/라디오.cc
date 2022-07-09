@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define SETTING ios::sync_with_stdio(0), cin.tie(0)
 using namespace std ;
 bool visited[500000] ;
 int start, want, N, tmp ;
@@ -44,6 +45,7 @@ void BFS()
 
 int main()
 {
+    SETTING ;
     cin >> start >> want >> N ;
     
     for(int i = 0 ; i < N ; i++)
