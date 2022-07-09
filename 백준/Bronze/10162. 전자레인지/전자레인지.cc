@@ -1,19 +1,8 @@
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std ;
-int T, arr[2][3] = {{300, 60, 10}, {0, 0, 0}};
 
-int main()
+int main(int T)
 {
     cin >> T ;
-    
-    for(int i = 0 ; i < 3 ; i++)
-    {
-        if(T / arr[0][i] <= 0) continue ;
-        arr[1][i] = T / arr[0][i] ;
-        T = T % arr[0][i] ;
-    }
-
-    if(T != 0) cout << "-1" ;
-    else
-        for(int i = 0 ; i < 3 ; i++) cout << arr[1][i] << " " ;
+    printf((T % 10) ? "-1": "%d %d %d", T/300, T%300/60, T%60/10) ;
 }
