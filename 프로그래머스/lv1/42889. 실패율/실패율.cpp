@@ -1,39 +1,35 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+#include <functional>
 using namespace std;
 
-bool comp(pair<int, double> a, pair<int, double> b)
-{
-    if(a.second == b.second) return a.first < b.first ;
-    return a.second > b.second ;
+bool compare(pair<double, int> &a, pair<double, int> &b) {
+    if(a.first == b.first) return a.second < b.second;
+    else return a.first > b.first;
 }
 
 vector<int> solution(int N, vector<int> stages) {
-    vector< pair<int, double> > pi(N+2) ;
-    vector<int> answer ;
-    
-    for(int i = 0 ; i <= N+1 ; i++)
-    {
-        pi[i].first = i ;
-        pi[i].second = 0 ;
+    sort(stages.begin(), stages.end(), greater<>());
+    int count_top, count_bottom;
+    double p = 0;
+    vector<pair <double, int>> arr;
+    vector<int> answer;
+
+    for(int i = 1; i <= N; i++) {
+        count_top = 0; count_bottom = 0;
+        for(int j = stages.size()-1; j >= 0; j--) {
+            if(stages[j] == i) count_top++;
+            if(stages[j] >= i) count_bottom++;
+        }
+        count_bottom != 0 ? p = (double)count_top/count_bottom : p = 0.0;
+        arr.push_back(make_pair(p, i));
     }
-    
-    for(auto it : stages)
-        pi[it].second++ ;
-    
-    int total = 0 ;
-    for(int i = N+1 ; i >= 1 ; i--)
-    {
-        total += pi[i].second ;
-        
-        if(total == 0) pi[i].second = 0 ;
-        else pi[i].second = pi[i].second / total ;
+    sort(arr.begin(), arr.end(), compare);
+    for(auto aa : arr) {
+        answer.push_back(aa.second);
     }
-    
-    sort(pi.begin()+1, pi.end()-1, comp) ;
-    
-    for(int i = 1 ; i <= N ; i++)
-        answer.push_back(pi[i].first) ;
-    
+
     return answer;
 }
