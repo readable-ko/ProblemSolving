@@ -7,7 +7,7 @@
 #include <bits/stdc++.h>
 using namespace std ;
 int N, K ;
-long long answer ;
+long long int answer ;
 
 int main()
 {
@@ -23,7 +23,7 @@ int main()
     sort(stone, stone + N) ;
 
     for(int i = 0 ; i < N ; i++)
-        answer += (long long)stone[i] * min(i, K) ;
+        answer += (long long int)stone[i] * min(i, K) ;
 
     cout << answer << "\n";
 }
