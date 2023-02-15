@@ -60,5 +60,5 @@ int main()
 
     DFS(max_node.ep, 0) ;
 
-    cout << max_node.value << '\n' ;
+    cout << max_node.value ;
 }
