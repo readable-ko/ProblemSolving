@@ -4,22 +4,18 @@
 #include <iostream>
 
 using namespace std;
+bool check ;
 
-bool DFS(vector<int> &str, int sp, int ep)
+bool DFS(vector<int> &str, int idx, int depth)
 {
-    int mid = (sp + ep) / 2 ;
-    if(sp == ep) return true ;
+    if(depth == 0) return true ;
+    if(str[idx] == 0)
+        if(str[idx - depth] == 1 || str[idx + depth] == 1) return false ;
+
+    bool lhs = DFS(str, idx - depth, depth / 2) ;
+    bool rhs = DFS(str, idx + depth, depth / 2) ;
     
-    if(str[mid] == 0) 
-    {
-        bool flag = 0 ;
-        for(int i = sp ; i <= ep ; i++)
-            if(str[i] != 0) flag = 1 ;
-        
-        return flag ? false : true ;
-    }
-    
-    return DFS(str, sp, mid) & DFS(str, mid + 1, ep) ;
+    return lhs & rhs ;
 }
 
 vector<int> solution(vector<long long> numbers) {
@@ -27,20 +23,23 @@ vector<int> solution(vector<long long> numbers) {
     
     for(long long num: numbers)
     {
-        int i = 0 ;
-        while(pow(2,pow(2,i)-1) < num) i++ ;
-        
-        vector<int> str(pow(2,i) - 1) ;
-        
-        for(int i = str.size() - 1 ; i >= 0 ; i--)
+        vector<int> str ;
+        while(num)
         {
-            str[i] = 1 & num ;
+            str.emplace_back(num & 1) ;
             num >>= 1 ;
         }
         
-        if(num == 1) str.push_back(1) ;
-        int tmp = DFS(str, 0, str.size() - 1) ;
-        answer.push_back(tmp) ;
+        int k = 0;
+        long long s = 0;
+
+        while(str.size()> s)
+            s += pow(2,k++);
+
+        while(str.size() < s)
+            str.emplace_back(0);
+
+        answer.push_back(DFS(str, str.size() / 2, (1 + str.size()) / 4)) ;
     }
     return answer;
 }
