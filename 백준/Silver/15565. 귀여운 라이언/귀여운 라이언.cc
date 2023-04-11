@@ -13,14 +13,12 @@ int main()
     for(int i = 0 ; i < N ; i++) {
         cin >> doll[i] ;
 
-        if(doll[i] == 1 && que.size() < K) {
+        if(doll[i] == 1) {
             que.push(i) ;
-            if(que.size() == K) min_int = min(min_int, i - que.front() + 1) ;
-        }
-        else if(doll[i] == 1 && que.size() == K) {
-            que.pop() ;
-            que.push(i) ;
-            if(que.size() == K) min_int = min(min_int, i - que.front() + 1) ;
+            if(que.size() == K) {
+                min_int = min(min_int, i - que.front() + 1) ;
+                que.pop();
+            }
         }
     }
 
