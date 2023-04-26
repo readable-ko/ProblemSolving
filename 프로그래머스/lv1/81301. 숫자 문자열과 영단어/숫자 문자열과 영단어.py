@@ -1,10 +1,10 @@
 import re
 def solution(s):
     answer = 0
-    mp = {'zero':'0', 'one':'1', 'two': '2', 'three':'3', 'four':'4',
-               'five':'5', 'six':'6', 'seven':'7', 'eight':'8', 'nine':'9'}
+    alph = ['zero', 'one', 'two', 'three', 'four',
+         'five', 'six', 'seven', 'eight', 'nine']
     
-    for key, val in mp.items():
-        s = re.sub(key, val, s)
+    for idx, val in enumerate(alph):
+        s = re.sub(val, str(idx), s)
 
     return int(s)
