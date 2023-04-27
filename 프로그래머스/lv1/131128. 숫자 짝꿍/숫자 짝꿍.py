@@ -1,19 +1,17 @@
+from collections import Counter
+
 def solution(X, Y):
     answer = ''
-    list_x = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    list_y = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
-    for x in X:
-        list_x[int(x)] += 1
-    for y in Y:
-        list_y[int(y)] += 1
-
-    for i in range(9, -1, -1):
-        answer += (str(i) * min(list_x[i], list_y[i]))
+    list_x = Counter(X)#[X.count(str(x)) for x in range(10)]
+    list_y = Counter(Y)#[Y.count(str(y)) for y in range(10)]
     
-    if answer == '':
+    for i in range(9, -1, -1):
+        i = str(i)
+        answer += i * min(list_x[i], list_y[i])
+    
+    if len(answer) == 0:
         answer = '-1'
     elif answer[0] == '0':
         answer = '0'
+        
     return answer
