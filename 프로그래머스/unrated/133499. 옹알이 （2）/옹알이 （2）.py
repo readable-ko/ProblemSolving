@@ -5,16 +5,11 @@ def solution(babbling):
     
     for speak in babbling:
         for idx in range(4):
-            speak = re.sub(can[idx], str(idx), speak)
+            if can[idx]*2 not in speak:
+                speak = re.sub(can[idx], str(1), speak)
         
         if re.search('\D', speak):
             continue
         
-        flag = True
-        for i in range(1, len(speak)):
-            if speak[i] == speak[i-1]:
-                flag = False
-                break
-        
-        if flag: answer += 1
+        answer += 1
     return answer
