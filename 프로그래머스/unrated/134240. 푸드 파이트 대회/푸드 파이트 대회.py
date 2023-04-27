@@ -1,8 +1,8 @@
 def solution(foods):
     answer = ''
     
-    for idx, food in enumerate(foods[-1::-1]):
-        answer += str(len(foods) - idx - 1) * (food // 2)
+    for idx, food in enumerate(foods):
+        answer += str(idx) * (food // 2)
     
-    answer = answer[-1::-1] + '0' + answer
+    answer = answer + '0' + answer[-1::-1]
     return answer
