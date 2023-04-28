@@ -1,9 +1,4 @@
 def solution(sizes):
-    w, h = 0, 0
+    answer = max(max(x) for x in sizes) * max(min(x) for x in sizes)
     
-    for size in sizes:
-        width, height = max(size[0], size[1]), min(size[0], size[1])
-        w = max(width, w)
-        h = max(height, h)
-    
-    return w * h
+    return answer
