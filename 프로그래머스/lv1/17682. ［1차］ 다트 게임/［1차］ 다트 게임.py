@@ -1,23 +1,12 @@
+import re
 def solution(dartResult):
-    answer = 0
-    dart = 0
-    darts = []
-    for i in dartResult:
-        if i.isdigit():
-            dart = dart*10 + int(i)
-        elif i.isalpha():
-            if i == 'D':
-                dart = dart**2
-            elif i == 'T':
-                dart = dart**3
-                
-            darts.append(dart)
-            dart = 0
-        else:
-            if i == '*':
-                darts[-2:] = [i * 2 for i in darts[-2:]]
-            elif i == '#':
-                darts[-1:] = [i * -1 for i in darts[-1:]]
+    bonus = {'S':1, 'D':2, 'T':3}
+    opt = {'':1, '*':2, '#':-1}
+    p = re.compile('(\d+)([STD])([*#]?)')
+    darts = p.findall(dartResult)
     
-    print(darts)
+    for i in range(len(darts)):
+        if darts[i][-1] == '*' and i > 0 :
+            darts[i - 1] *= 2
+        darts[i] = int(darts[i][0]) ** bonus[darts[i][1]] * opt[darts[i][2]]
     return sum(darts)
