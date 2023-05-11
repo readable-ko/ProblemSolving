@@ -17,12 +17,12 @@ string time2mm(string st)
 vector<string> solution(vector<vector<string>> plans) {
     vector<string> answer;
     stack<vector<string>> st ;
-    
+
     for(auto &plan : plans)
         plan[1] = time2mm(plan[1]) ;
-    
+
     sort(plans.begin() , plans.end(), comp) ;
-    
+
     vector<string> tmp ;
     string str[] = {"LAST", "2000", "2000"} ;
     for(auto s : str)
@@ -34,7 +34,7 @@ vector<string> solution(vector<vector<string>> plans) {
 
         if(now >= 0) {
             answer.push_back(plans[i][0]) ;
-            
+
             while(now > 0) {
                 if(st.empty()) {
                     now = 0 ;
@@ -56,7 +56,7 @@ vector<string> solution(vector<vector<string>> plans) {
             plans[i][2] = to_string(-now) ;
             st.push(plans[i]);
         }
-        
+
         // 1-1. 다음 것이 오기 전에 다 끝낸 경우 바로 정답에 넣기 O
         // 1-2. 남은 시간 없을 때까지 남는 시간 스택 맨 앞에꺼 시간 빼주기 O
         // 1-3. 만약 스택 위에꺼 다 했으면 빼고 다음 꺼 진행을 반복 O
