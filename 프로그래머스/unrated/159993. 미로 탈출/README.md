@@ -1,10 +1,10 @@
 # [unrated] 미로 탈출 - 159993 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/159993) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/159993?language=cpp) 
 
 ### 성능 요약
 
-메모리: 10.2 MB, 시간: 0.07 ms
+메모리: 3.75 MB, 시간: 0.01 ms
 
 ### 구분
 
