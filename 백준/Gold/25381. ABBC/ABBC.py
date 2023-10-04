@@ -1,25 +1,19 @@
 import sys
 sentence = sys.stdin.readline().strip()
-check = 0
+answer = set()
 
-box_a = []
-box_b = []
-box_c = []
-
-for idx, char in enumerate(sentence):
-    if char == 'A':
-        box_a.append(idx)
+# for split a, b, c
+def erase_b(target:str, give:str):
+    box = []
+    for idx, char in enumerate(sentence):
+        if char == target:
+            box.append(idx)
         
-    elif char == 'B':
-        if len(box_a) != 0:
-            box_a.pop(0)
-            check += 1
-        box_b.append(idx)
-        
-    elif len(box_b) != 0:
-        num = box_b.pop(0)
-        print(num)
-        check += 1
+        if char == give and len(box) > 0:
+            answer.add(box.pop(0))
+    
+    return
 
-num_of_b = sentence.count('B')
-print(check if check <= num_of_b else num_of_b)
+erase_b('A','B')
+erase_b('B','C')
+print(len(answer))
