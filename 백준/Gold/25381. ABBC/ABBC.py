@@ -2,18 +2,21 @@ import sys
 sentence = sys.stdin.readline().strip()
 answer = set()
 
-# for split a, b, c
-def erase_b(target:str, give:str):
-    box = []
-    for idx, char in enumerate(sentence):
-        if char == target:
-            box.append(idx)
-        
-        if char == give and len(box) > 0 and idx not in answer:
-            answer.add(box.pop(0))
-    
-    return
+box_a = []
+box_b = []
 
-erase_b('B','C')
-erase_b('A','B')
+# for split a, b, c
+for idx, char in enumerate(sentence):
+    if char == 'B':
+        box_b.append(idx)
+    elif char == 'C' and len(box_b) > 0:
+        answer.add(box_b.pop(0))
+
+for idx, char in enumerate(sentence):
+    if char == 'A':
+        box_a.append(idx)   
+    elif char == 'B' and len(box_a) > 0 and idx not in answer:
+        box_a.pop(0)
+        answer.add(idx)
+        
 print(len(answer))
