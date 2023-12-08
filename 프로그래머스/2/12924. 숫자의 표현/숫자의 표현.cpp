@@ -1,31 +1,13 @@
 #include <string>
 #include <vector>
+
 using namespace std;
 
 int solution(int n) {
-    int answer = 1, ep = 0, sum = 0, sp = 1;
-    
-    for (int i = 0 ; i < n/2; i++) {
-        if (i * (i + 1) / 2 >= n) {
-            ep = i;
-            sum = i * (i + 1) / 2;
-            break;
-        }
-    }
-    
-    while (ep != n) {
-        if (sum == n) {
+    int answer = 0;
+    for (int i = 1 ; i <= n ; i+=2) {
+        if (n % i == 0) {
             answer++;
-            sum -= sp;
-            sp++;
-        }
-        else if(sum > n) {
-            sum -= sp;
-            sp++;
-        }
-        else {
-            ep++;
-            sum += ep;
         }
     }
     
