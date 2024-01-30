@@ -1,8 +1,5 @@
 import sys
 from itertools import combinations
-# 최대 13개 중 8개 소멸 -> 1700개의 경우의 수
-# 각 집에서 치킨집까지 거리를 마킹
-# 소멸 경우의 수 마다 최대거리 확인
 
 N, M = map(int,sys.stdin.readline().split())
 area, chicken, house, distance = [], [], [], []
@@ -23,7 +20,7 @@ for idx in range(len(chicken)):
         r, c = h
         distance[idx].append(abs(x - r) + abs(y - c))
 
-answer = 0x3f3f3f3f
+answer = sum(distance[0])
 for choosen in combinations(distance, M):
     subAnswer = choosen[0].copy()
     
