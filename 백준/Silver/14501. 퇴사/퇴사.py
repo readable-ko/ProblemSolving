@@ -1,15 +1,13 @@
 import sys
+N = int(sys.stdin.readline())
+table = [0 for _ in range(N+1)]
+for idx in range(N):
+    
+    time, price = map(int,sys.stdin.readline().split())
+    table[idx] = max(table[idx], table[idx - 1])
+    
+    if idx + time > N:
+        continue
+    table[idx + time] = max(table[idx + time], table[idx] + price)
 
-N, maximum = int(sys.stdin.readline()), 0
-arr, dp = [[0,0]], [0] * (N+2)
-TIME, PRICE = 0, 1
-
-for i in range(1, N+1):
-    arr.append(list(map(int,sys.stdin.readline().split())))
-
-for i in range(N, 0, -1):
-    if i + arr[i][TIME] <= N + 1:
-        dp[i] = dp[i + arr[i][TIME]] + arr[i][PRICE]
-    dp[i] = max(dp[i], dp[i+1])
-
-print(max(dp))
+print(max(table[-1],table[-2]))
