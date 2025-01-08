@@ -13,11 +13,7 @@ int main() {
 
     for(long long int i = 2; i * i <= max_val; i++) {
         
-        long long int ret = min_val / (i * i);
-
-        if(min_val % (i*i) != 0) {
-            ret++;
-        }
+        long long int ret = ceil((long double)min_val / (i * i));
         
         while((i * i * ret) <= max_val) {
             if(!sieve[(i*i)*ret - min_val]) {
