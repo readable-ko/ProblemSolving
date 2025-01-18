@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int checked[2001][2001];
-vector<int> arr;
+vector<int> num;
 
 bool checkPalindrom(int S, int E) {
     if(S >= E) {
@@ -9,7 +9,7 @@ bool checkPalindrom(int S, int E) {
     }
 
     if(checked[S][E] == 0) {
-        if(arr[S] != arr[E]) {
+        if(num[S] != num[E]) {
             checked[S][E] = -1;
             return false;
         }
@@ -28,10 +28,10 @@ int main() {
     ios::sync_with_stdio(0), cin.tie(0);
     int N;
     cin >> N;
-    arr = vector<int>(N+1);
+    num = vector<int>(N+1);
 
     for(int i = 1 ; i <= N ; i++) {
-        cin >> arr[i];
+        cin >> num[i];
         checked[i][i] = 1;
     }
     
