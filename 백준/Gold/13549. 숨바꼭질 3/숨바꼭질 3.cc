@@ -1,48 +1,49 @@
-#include <iostream>
-#include <queue>
+#include <bits/stdc++.h>
+#define MAX_VAL 0x3F3F3F3F
 using namespace std;
 
-int n, k;
-int visited[200000] = {0};
+int N, K;
+int point[100001];
+bool visited[100001];
 queue<pair<int, int>> q;
 
-int bfs() {
-	while(!q.empty()) {
-		int value = q.front().first;
-		int cnt = q.front().second;
-		q.pop();
-		
-		if(value == k) return cnt;
-		
-		int teleport = 2;
-		while(value*teleport < 200000 && visited[value*teleport] == 0) {
-			q.push(make_pair(value*teleport, cnt));
-			visited[value*teleport] = 1;
-			teleport *= 2;
-		}
-		
-		if(visited[value-1] == 0 && value-1 >= 0) {
-			q.push(make_pair(value-1, cnt+1));
-			visited[value-1] = 1;
-		}
-		
-		if(visited[value+1] == 0 && value < 100000) {
-			q.push(make_pair(value+1, cnt+1));
-			visited[value+1] = 1;
-		}
-	}
+void BFS(int k, int depth) {
+   point[k] = depth;
+
+   q.push(make_pair(k, depth));
+   visited[k] = true;
+
+   while (!q.empty()) {
+        pair<int, int> top = q.front(); q.pop();
+        if (top.first == K) {
+            cout << top.second;
+            break;
+        }
+        
+        int min_one = top.first - 1, plus_one = top.first + 1, mul_two = top.first * 2;
+
+        if (0 <= mul_two && mul_two <= 100000 && !visited[mul_two]) {
+            visited[mul_two] = true;
+            q.push(make_pair(mul_two, top.second));
+        }
+
+        if (min_one >= 0 && !visited[min_one]) {
+            visited[min_one] = true;
+            q.push(make_pair(min_one, top.second + 1));
+        }
+
+        if (plus_one <= 100000 && !visited[plus_one]) {
+            visited[plus_one] = true;
+            q.push(make_pair(plus_one, top.second + 1));
+        }
+    }
 }
 
 int main() {
-	cin.tie(0);
-	cout.tie(0);
-	
-	cin >> n >> k;
-	
-	q.push(make_pair(n, 0));
-	visited[n] = 1;
-	
-	int res = (n==k) ? 0 : bfs();
-	
-	cout << res;
+   ios::sync_with_stdio(0), cin.tie(0);
+
+   cin >> N >> K;
+   memset(point, MAX_VAL, sizeof(point));
+
+   BFS(N, 0);
 }
