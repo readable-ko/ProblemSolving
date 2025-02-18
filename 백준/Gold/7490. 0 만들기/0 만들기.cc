@@ -49,7 +49,6 @@ int main() {
     for(int t = 0; t < test_cases; t++) {
         cin >> N;
         dfs(1, "1");
-        if(t != test_cases - 1)
-            cout << "\n";
+        cout << "\n";
     }
 }
