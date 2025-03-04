@@ -4,9 +4,8 @@ int R, C;
 int maximum = 0, dx[4] = { 1, -1, 0, 0 }, dy[4] = { 0, 0, 1, -1 };
 vector<string> board;
 
-void dfs(int r, int c, bitset<26>& exist) {
-   int num = board[r][c] - 'A';
-   maximum = max(maximum, (int)exist.count());
+void dfs(int r, int c, int bitmask, int cnt) {
+   maximum = max(maximum, cnt);
 
    for (int i = 0; i < 4; i++) {
       int nx = r + dx[i];
@@ -17,10 +16,8 @@ void dfs(int r, int c, bitset<26>& exist) {
       }
 
       int n = board[nx][ny] - 'A';
-      if (!exist[n]) {
-         exist[n] = true;
-         dfs(nx, ny, exist);
-         exist[n] = false;
+      if (!(bitmask & (1 << n))) {
+         dfs(nx, ny, bitmask | (1 << n), cnt + 1);
       }
    }
    return;
@@ -29,15 +26,13 @@ void dfs(int r, int c, bitset<26>& exist) {
 int main() {
    ios::sync_with_stdio(0), cin.tie(0);
    cin >> R >> C;
-   bitset<26> exist;
+   board.resize(R);
 
    for (int i = 0; i < R; i++) {
-      string str;
-      cin >> str;
-      board.push_back(str);
+      cin >> board[i];
    }
 
-   exist.set(board[0][0] - 'A');
-   dfs(0, 0, exist);
+   int exist = board[0][0] - 'A';
+   dfs(0, 0, (1 << exist), 1);
    cout << maximum << "\n";
 }
